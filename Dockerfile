@@ -38,4 +38,4 @@ COPY --from=backend /Fruit-Classification/backend/ ./backend
 RUN npm install -g concurrently
 
 # Menjalankan kedua aplikasi secara bersamaan
-CMD ["concurrently", "npm run dev --prefix frontend", "uvicorn main:app --reload --host 0.0.0.0 --port 8000 --prefix backend"]
+CMD ["concurrently", "npm run dev --prefix frontend", "uvicorn main:app --reload --prefix backend"]
