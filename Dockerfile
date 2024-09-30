@@ -1,5 +1,5 @@
 # Gunakan image resmi Node.js untuk frontend
-FROM node:16 AS frontend
+FROM node:18 AS frontend
 
 WORKDIR /app/frontend
 
@@ -8,7 +8,7 @@ RUN npm install
 
 COPY frontend/ ./
 # Gunakan npm run build untuk menghasilkan output yang akan disajikan
-RUN npm run build
+CMD npm run dev
 
 # Gunakan image resmi Python untuk backend
 FROM python:3.9 AS backend
