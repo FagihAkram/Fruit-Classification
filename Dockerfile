@@ -7,7 +7,7 @@ COPY frontend/package.json frontend/package-lock.json ./
 RUN npm install
 
 COPY frontend/ ./
-RUN npm run build
+RUN npm run dev
 
 # Gunakan image resmi Python untuk backend
 FROM python:3.9 AS backend
