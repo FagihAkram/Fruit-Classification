@@ -20,8 +20,7 @@ RUN pip install -r requirements.txt
 
 COPY backend/ ./
 
-# Menjalankan backend
-CMD ["uvicorn", "main:app", "--reload"]
+
 
 # Menjalankan frontend
 FROM node:18
@@ -32,3 +31,12 @@ COPY --from=frontend /app/frontend/ ./
 
 # Menjalankan frontend di port 3000
 CMD ["npm", "run", "dev"]
+
+WORKDIR /app/backend
+
+COPY --from=backend /app/backend/ ./
+
+# Menjalankan backend
+CMD ["uvicorn", "main:app", "--reload"]
+
+
