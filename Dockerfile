@@ -7,8 +7,8 @@ COPY frontend/package.json frontend/package-lock.json ./
 RUN npm install
 
 COPY frontend/ ./
-# Gunakan npm run build untuk menghasilkan output yang akan disajikan
-CMD npm run dev
+# Gunakan npm run build untuk menghasilkan output
+RUN npm run build
 
 # Gunakan image resmi Python untuk backend
 FROM python:3.9 AS backend
@@ -23,12 +23,12 @@ COPY backend/ ./
 # Menjalankan backend
 CMD ["uvicorn", "main:app", "--reload"]
 
-# Menggabungkan frontend dan backend
-FROM nginx:alpine
+# Menjalankan frontend
+FROM node:18
 
-# Pastikan untuk meng-copy hasil build dari frontend ke nginx
-COPY --from=frontend /app/frontend /usr/share/nginx/html/frontend
-COPY --from=backend /app/backend /usr/share/nginx/html/backend
+WORKDIR /app/frontend
 
-# Menjalankan Nginx
-CMD ["nginx", "-g", "daemon off;"]
+COPY --from=frontend /app/frontend/ ./
+
+# Menjalankan frontend di port 3000
+CMD ["npm", "run", "dev"]
