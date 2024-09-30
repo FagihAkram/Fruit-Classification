@@ -1,0 +1,32 @@
+# Gunakan image resmi Node.js untuk frontend
+FROM node:16 AS frontend
+
+WORKDIR /app/frontend
+
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm install
+
+COPY frontend/ ./
+RUN npm run build
+
+# Gunakan image resmi Python untuk backend
+FROM python:3.9 AS backend
+
+WORKDIR /app/backend
+
+COPY backend/requirements.txt ./
+RUN pip install -r requirements.txt
+
+COPY backend/ ./
+
+# Menjalankan backend
+CMD ["uvicorn", "main:app", "--reload"]
+
+# Menggabungkan frontend dan backend
+FROM nginx:alpine
+
+COPY --from=frontend /app/frontend/out /usr/share/nginx/html
+COPY --from=backend /app/backend /usr/share/nginx/html/backend
+
+# Menjalankan Nginx
+CMD ["nginx", "-g", "daemon off;"]
