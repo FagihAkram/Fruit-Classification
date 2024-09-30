@@ -27,7 +27,7 @@ CMD ["uvicorn", "main:app", "--reload"]
 FROM nginx:alpine
 
 # Pastikan untuk meng-copy hasil build dari frontend ke nginx
-COPY --from=frontend /app/frontend /usr/share/nginx/html
+COPY --from=frontend /app/frontend /usr/share/nginx/html/frontend
 COPY --from=backend /app/backend /usr/share/nginx/html/backend
 
 # Menjalankan Nginx
