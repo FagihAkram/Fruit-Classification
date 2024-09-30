@@ -21,14 +21,21 @@ RUN pip install -r requirements.txt
 COPY backend/ ./
 
 # Menjalankan backend
-CMD ["uvicorn", "main:app", "--reload"]
+# CMD ["uvicorn", "main:app", "--reload"]
 
-# Menjalankan frontend
+# Menggunakan image Node.js untuk menjalankan kedua aplikasi
 FROM node:18
 
-WORKDIR /Fruit-Classification/frontend
+WORKDIR /Fruit-Classification
 
-COPY --from=frontend /Fruit-Classification/frontend/ ./
+# Menyalin hasil build frontend
+COPY --from=frontend /Fruit-Classification/frontend/ ./frontend
 
-# Menjalankan frontend di port 3000
-CMD ["npm", "run", "dev"]
+# Menyalin backend
+COPY --from=backend /Fruit-Classification/backend/ ./backend
+
+# Install concurrently untuk menjalankan kedua proses
+RUN npm install -g concurrently
+
+# Menjalankan kedua aplikasi secara bersamaan
+CMD ["concurrently", "npm run dev --prefix frontend", "uvicorn main:app --reload --host 0.0.0.0 --port 8000 --prefix backend"]
