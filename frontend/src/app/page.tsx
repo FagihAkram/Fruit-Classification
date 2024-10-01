@@ -31,6 +31,7 @@ const Home: NextPage = () => {
       formData.append("file", file);
 
       try {
+        console.log(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/predict`);
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/predict`,
           {
