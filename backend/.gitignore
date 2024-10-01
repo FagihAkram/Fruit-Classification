@@ -16,10 +16,10 @@ build/
 # local env files
 .env*.local
 
-models/
-*.h5
-*.pth
-*.pkl
+# models/
+# *.h5
+# *.pth
+# *.pkl
 
 # IDE files
 .vscode/
