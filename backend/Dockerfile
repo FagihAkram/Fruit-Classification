@@ -1,12 +1,18 @@
-# Gunakan image resmi Python untuk backend
-FROM python:3.9 AS backend
+# Backend Dockerfile
+FROM python:3.9-slim
 
-WORKDIR /app/backend
+# Set work directory
+WORKDIR /app
 
-COPY backend/requirements.txt ./
-RUN pip install -r requirements.txt
+# Install dependencies
+COPY ./backend/requirements.txt /app/requirements.txt
+RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 
-COPY backend/ ./
+# Copy project
+COPY ./backend /app
 
-# Menjalankan backend
-CMD ["uvicorn", "main:app", "--reload"]
+# Expose the port FastAPI will run on
+EXPOSE 8000
+
+# Command to run the FastAPI server
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]

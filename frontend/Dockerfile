@@ -1,11 +1,19 @@
-# Gunakan image resmi Node.js untuk frontend
-FROM node:18 AS frontend
+# Frontend Dockerfile
+FROM node:16
 
-WORKDIR /app/frontend
+# Set work directory
+WORKDIR /app
 
-COPY frontend/package.json frontend/package-lock.json ./
+# Install dependencies
+COPY ./frontend/package.json /app/package.json
+COPY ./frontend/package-lock.json /app/package-lock.json
 RUN npm install
 
-COPY frontend/ ./
-# Gunakan npm run build untuk menghasilkan output
-RUN npm run build
+# Copy project
+COPY ./frontend /app
+
+# Expose the port Next.js will run on
+EXPOSE 3000
+
+# Command to run the Next.js dev server
+CMD ["npm", "run", "dev"]
