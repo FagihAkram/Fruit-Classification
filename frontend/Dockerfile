@@ -10,7 +10,7 @@ COPY ./frontend/package-lock.json /app/package-lock.json
 RUN npm install
 
 # Copy project
-COPY ./frontend /app
+COPY . /app
 
 # Expose the port Next.js will run on
 EXPOSE 3000

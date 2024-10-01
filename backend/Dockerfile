@@ -5,11 +5,11 @@ FROM python:3.9-slim
 WORKDIR /app
 
 # Install dependencies
-COPY ./backend/requirements.txt /app/requirements.txt
+COPY requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 
-# Copy project
-COPY ./backend /app
+# Copy the entire backend folder
+COPY . /app
 
 # Expose the port FastAPI will run on
 EXPOSE 8000
