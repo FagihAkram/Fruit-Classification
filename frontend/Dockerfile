@@ -1,5 +1,5 @@
 # Frontend Dockerfile
-FROM node:16
+FROM node:18.17.0
 
 # Set working directory
 WORKDIR /app
