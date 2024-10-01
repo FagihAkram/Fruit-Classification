@@ -18,14 +18,27 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push
+      - name: Build and push backend Docker image
         uses: docker/build-push-action@v6
         with:
+          context: ./backend  # Path ke folder backend
+          file: ./backend/Dockerfile  # Path ke Dockerfile backend
           push: true
-          tags: fagihakram/fruit-classification:latest
+          tags: fagihakram/fruit-classification-backend:latest
+
+      - name: Build and push frontend Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./frontend  # Path ke folder frontend
+          file: ./frontend/Dockerfile  # Path ke Dockerfile frontend
+          push: true
+          tags: fagihakram/fruit-classification-frontend:latest
