@@ -1,15 +1,17 @@
 # Frontend Dockerfile
 FROM node:16
 
-# Set work directory
+# Set working directory
 WORKDIR /app
 
+# Copy package.json and package-lock.json
+COPY package.json /app/package.json
+COPY package-lock.json /app/package-lock.json
+
 # Install dependencies
-COPY ./frontend/package.json /app/package.json
-COPY ./frontend/package-lock.json /app/package-lock.json
 RUN npm install
 
-# Copy project
+# Copy all frontend files
 COPY . /app
 
 # Expose the port Next.js will run on
