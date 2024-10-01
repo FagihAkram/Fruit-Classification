@@ -1,15 +1,12 @@
 # Backend Dockerfile
 FROM python:3.11-slim
 
-# Set work directory
-WORKDIR /app
-
 # Install dependencies
-COPY requirements.txt /app/requirements.txt
-RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
+COPY requirements.txt /requirements.txt
+RUN pip install --no-cache-dir --upgrade -r /requirements.txt
 
 # Copy the entire backend folder
-COPY . /app
+COPY . 
 
 # Expose the port FastAPI will run on
 EXPOSE 8000
