@@ -1,4 +1,6 @@
 fastapi
 uvicorn
+python-multipart
 tensorflow
-numpy
+keras
+h5py

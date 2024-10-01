@@ -1,5 +1,5 @@
 # Backend Dockerfile
-FROM python:3.9-slim
+FROM python:3.11-slim
 
 # Set work directory
 WORKDIR /app
@@ -15,4 +15,5 @@ COPY . /app
 EXPOSE 8000
 
 # Command to run the FastAPI server
-CMD ["uvicorn", "main:app", "--reload"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+
