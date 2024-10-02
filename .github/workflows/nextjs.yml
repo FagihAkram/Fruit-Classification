@@ -30,7 +30,7 @@ jobs:
       - name: Build and push backend Docker image
         uses: docker/build-push-action@v6
         with:
-          context: ./backend  # Path ke folder backend 
+          context: ./backend  
           file: ./backend/Dockerfile  # Path ke Dockerfile backend
           push: true
           tags: fagihakram/fruit-classification-backend:latest
